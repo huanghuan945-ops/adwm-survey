@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Project page for the survey World Models for Autonomous Driving: From Future Generation to Decision Making.">
+  <title>World Models for Autonomous Driving</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <span class="brand-mark">AD</span>
+      <span>AD World Models</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#abstract">Abstract</a>
+      <a href="#taxonomy">Taxonomy</a>
+      <a href="#methods">Methods</a>
+      <a href="#evaluation">Evaluation</a>
+      <a href="#authors">Authors</a>
+      <a href="#citation">Citation</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Survey Paper | Autonomous Driving | World Models | MPC</p>
+          <h1>World Models for Autonomous Driving: From Future Generation to Decision Making</h1>
+          <p class="hero-lede">
+            A task-oriented survey of autonomous-driving world models, connecting future generation,
+            planner-facing rollout, closed-loop simulation, and MPC-style decision interfaces.
+          </p>
+          <div class="author-line">
+            <span>Han Huang*</span>
+            <span>Dingkang Yang*</span>
+            <span>Lulu Guo</span>
+            <span>Yang Liu</span>
+            <span>Victor C.M. Leung</span>
+            <span>Hong Chen</span>
+          </div>
+          <p class="affiliation-line">Tongji University, Fudan University, The Chinese University of Hong Kong, Shenzhen MSU-BIT University, Shenzhen University, The University of British Columbia</p>
+          <div class="action-row">
+            <a class="button primary" href="assets/ADWM-V3.pdf">Paper PDF</a>
+            <a class="button" href="assets/refs.bib">References</a>
+            <a class="button" href="#citation">BibTeX</a>
+            <a class="button" href="#taxonomy">Taxonomy</a>
+          </div>
+        </div>
+        <figure class="hero-figure">
+          <img src="assets/figures/roadmap.png" alt="Overall roadmap of the survey">
+          <figcaption>Roadmap from definition to taxonomy, comparison, evaluation ecology, and future challenges.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section compact" id="abstract">
+      <div class="section-heading">
+        <p class="eyebrow">Abstract</p>
+        <h2>Generated futures are useful only when planners can consume them.</h2>
+      </div>
+      <div class="text-block">
+        <p>
+          Autonomous driving systems must reason beyond the current scene: they need to predict how
+          surrounding traffic may evolve, assess candidate actions, and support safe closed-loop behavior.
+          Recent work has moved from perception and short-horizon prediction toward driving world models
+          that can generate future scenes, roll out possible states, or expose transitions for decision making.
+        </p>
+        <p>
+          This survey adopts a Model Predictive Control perspective and views driving world models as
+          predictive transition interfaces for state rollout, constraint reasoning, cost evaluation, uncertainty
+          handling, and receding-horizon decision making. Existing methods are grouped into future world
+          generation, planning with world models, and hybrid prediction-planning world models.
+        </p>
+      </div>
+      <div class="contribution-grid">
+        <article>
+          <span class="mini-icon">01</span>
+          <h3>Task-Oriented Taxonomy</h3>
+          <p>Separates generating a future from using a future for action scoring, policy learning, and closed-loop simulation.</p>
+        </article>
+        <article>
+          <span class="mini-icon">02</span>
+          <h3>MPC-Informed Interface</h3>
+          <p>Compares models by rollout, constraints, uncertainty, and cost-relevant state exposure rather than visual realism alone.</p>
+        </article>
+        <article>
+          <span class="mini-icon">03</span>
+          <h3>Evaluation Ecology</h3>
+          <p>Connects datasets, simulators, metrics, benchmarks, and the gap between open-loop fit and closed-loop evidence.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section split" id="trend">
+      <div class="section-heading">
+        <p class="eyebrow">Publication Trend</p>
+        <h2>Autonomous-driving world models are becoming a distinct research topic.</h2>
+        <p>
+          The paper tracks autonomous-driving research, world-model research, and autonomous-driving
+          world-model research from 2016 to 2025 using Web of Science topic queries.
+        </p>
+      </div>
+      <figure class="figure-panel">
+        <img src="assets/figures/publication-trends.png" alt="Publication trends for autonomous driving, world models, and autonomous driving world models">
+      </figure>
+    </section>
+
+    <section class="section" id="interface">
+      <div class="section-heading center">
+        <p class="eyebrow">MPC-Oriented Interface</p>
+        <h2>A world model should expose a predictive transition interface.</h2>
+      </div>
+      <div class="interface-layout">
+        <article class="formula-panel">
+          <h3>Transition</h3>
+          <p class="formula">s<sub>t+1</sub> ~ p<sub>theta</sub>(. | s<sub>t</sub>, a<sub>t</sub>, z<sub>t</sub>)</p>
+          <p>The model advances world state under observations, ego action, route, map, agent history, language, or scene metadata.</p>
+        </article>
+        <article class="formula-panel">
+          <h3>Rollout</h3>
+          <p class="formula">min E[sum l(s<sub>k</sub>, a<sub>k</sub>) + l<sub>T</sub>(s<sub>H</sub>)]</p>
+          <p>The planner evaluates candidate actions by predicted consequences over a receding horizon.</p>
+        </article>
+        <article class="formula-panel">
+          <h3>Evidence</h3>
+          <p class="formula">quality -> actionability -> closed-loop utility</p>
+          <p>Visual, geometric, controllability, planning, and safety metrics should form a connected evidence chain.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="taxonomy">
+      <div class="section-heading center">
+        <p class="eyebrow">Task-Oriented Taxonomy</p>
+        <h2>Three roles for autonomous-driving world models.</h2>
+      </div>
+      <figure class="wide-figure">
+        <img src="assets/figures/taxonomy.png" alt="Task-oriented taxonomy of autonomous driving world models">
+      </figure>
+      <div class="taxonomy-grid">
+        <article>
+          <h3>Future World Generation</h3>
+          <p>Generates future scenes or states in visual, BEV, occupancy, LiDAR, or structured spaces.</p>
+          <ul>
+            <li>Best for controllable synthesis, data augmentation, and scene visualization.</li>
+            <li>Needs grounding before becoming a planner-facing cost or constraint.</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Planning With World Models</h3>
+          <p>Uses imagined futures for trajectory scoring, latent policy learning, rewards, values, or MPC-style rollout.</p>
+          <ul>
+            <li>Best for counterfactual action evaluation and interpretable candidate scoring.</li>
+            <li>Needs uncertainty calibration and closed-loop validation under ego intervention.</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Hybrid Prediction-Planning</h3>
+          <p>Couples world modeling and decision making through shared latent states, generated futures, or executable simulators.</p>
+          <ul>
+            <li>Best for unified action-generation systems and closed-loop testbeds.</li>
+            <li>Needs strong ablations because failures can arise from several coupled modules.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section visual-triptych">
+      <div class="section-heading center">
+        <p class="eyebrow">Representation-Specific Views</p>
+        <h2>Representation choices define what a planner can verify.</h2>
+      </div>
+      <div class="triptych">
+        <figure>
+          <img src="assets/figures/future-generation.png" alt="Representation trade-offs for future world generation">
+          <figcaption>Future world generation: visual, BEV, occupancy, and LiDAR trade-offs.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/figures/planning-world-models.png" alt="Planning with world models">
+          <figcaption>Planning with world models: trajectory evaluation, latent rollout, and MPC planning.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/figures/hybrid-world-models.png" alt="Hybrid prediction-planning world models">
+          <figcaption>Hybrid systems: generated futures, shared latents, and interactive simulators.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="methods">
+      <div class="section-heading center">
+        <p class="eyebrow">Representative Methods</p>
+        <h2>Representative autonomous-driving world models and evidence.</h2>
+      </div>
+      <div class="filter-row" role="group" aria-label="Filter representative methods">
+        <button class="filter-button active" data-filter="all" type="button">All</button>
+        <button class="filter-button" data-filter="generation" type="button">Generation</button>
+        <button class="filter-button" data-filter="planning" type="button">Planning</button>
+        <button class="filter-button" data-filter="hybrid" type="button">Hybrid</button>
+      </div>
+      <div class="table-wrap">
+        <table class="method-table">
+          <thead>
+            <tr>
+              <th>Study</th>
+              <th>Role</th>
+              <th>Approach</th>
+              <th>State or Interface</th>
+              <th>Evidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-role="generation">
+              <td>FIERY (ICCV 2021)</td>
+              <td>Generation</td>
+              <td>Probabilistic BEV latent dynamics with ego-motion conditioning.</td>
+              <td>BEV instance masks, motion fields, trajectories.</td>
+              <td>nuScenes and Lyft; scene rollout, mainly prediction.</td>
+            </tr>
+            <tr data-role="generation">
+              <td>GAIA-1 (arXiv 2023)</td>
+              <td>Generation</td>
+              <td>Discrete-token autoregressive video world model with text and action control.</td>
+              <td>Future camera video tokens.</td>
+              <td>Internal logs; controllable visual imagination.</td>
+            </tr>
+            <tr data-role="generation">
+              <td>DriveDreamer (ECCV 2024)</td>
+              <td>Generation</td>
+              <td>Conditional diffusion with HD maps, boxes, and ego actions.</td>
+              <td>Action video and traffic layout.</td>
+              <td>nuScenes; generation and augmentation evidence.</td>
+            </tr>
+            <tr data-role="generation">
+              <td>OccWorld (ECCV 2024)</td>
+              <td>Generation</td>
+              <td>Occupancy tokenizer with spatio-temporal Transformer.</td>
+              <td>3-D occupancy and ego trajectory.</td>
+              <td>nuScenes; planner-facing state evidence.</td>
+            </tr>
+            <tr data-role="generation">
+              <td>DOME (arXiv 2024)</td>
+              <td>Generation</td>
+              <td>Spatio-temporal diffusion for long-horizon occupancy.</td>
+              <td>Multi-step occupancy states.</td>
+              <td>nuScenes; long-horizon geometric forecasting.</td>
+            </tr>
+            <tr data-role="generation">
+              <td>Drive-OccWorld (AAAI 2025)</td>
+              <td>Generation</td>
+              <td>BEV memory and action-conditioned occupancy decoding.</td>
+              <td>4-D occupancy, flow, and cost cues.</td>
+              <td>nuScenes; directly supports candidate scoring.</td>
+            </tr>
+            <tr data-role="planning">
+              <td>MP3 (CVPR 2021)</td>
+              <td>Planning</td>
+              <td>BEV-centric perception, prediction, and planning.</td>
+              <td>BEV map, agent futures, ego trajectory.</td>
+              <td>Open-loop and closed-loop CARLA-style evaluation.</td>
+            </tr>
+            <tr data-role="planning">
+              <td>Think2Drive (ECCV 2024)</td>
+              <td>Planning</td>
+              <td>Dreamer-style latent dynamics for efficient reinforcement learning.</td>
+              <td>Latent transitions, rewards, and policies.</td>
+              <td>Closed-loop CARLA-V2 tasks.</td>
+            </tr>
+            <tr data-role="planning">
+              <td>WoTE (ICCV 2025)</td>
+              <td>Planning</td>
+              <td>BEV world model for online trajectory evaluation.</td>
+              <td>Future BEV states and trajectory scores.</td>
+              <td>NAVSIM and Bench2Drive; MPC-aligned evidence.</td>
+            </tr>
+            <tr data-role="planning">
+              <td>Raw2Drive (NeurIPS 2025)</td>
+              <td>Planning</td>
+              <td>Raw-sensor world model aligned by privileged guidance.</td>
+              <td>Latent rollout for policy optimization.</td>
+              <td>CARLA v2; compact sensor-latent testing.</td>
+            </tr>
+            <tr data-role="hybrid">
+              <td>Drive-WM (CVPR 2024)</td>
+              <td>Hybrid</td>
+              <td>Multi-view imagination for action comparison.</td>
+              <td>Future video and reward cues.</td>
+              <td>nuScenes-style planning evidence.</td>
+            </tr>
+            <tr data-role="hybrid">
+              <td>GenAD (ECCV 2024)</td>
+              <td>Hybrid</td>
+              <td>Instance-centric generative end-to-end driving.</td>
+              <td>Scene-token futures and ego plans.</td>
+              <td>nuScenes planning evaluation.</td>
+            </tr>
+            <tr data-role="hybrid">
+              <td>DrivingGPT (ICCV 2025)</td>
+              <td>Hybrid</td>
+              <td>Unified autoregressive modeling of observations and actions.</td>
+              <td>Visual and action token rollout.</td>
+              <td>nuPlan and NAVSIM planning evidence.</td>
+            </tr>
+            <tr data-role="hybrid">
+              <td>DriveArena (ICCV 2025)</td>
+              <td>Hybrid</td>
+              <td>Generative closed-loop traffic scene evolution.</td>
+              <td>Reactive simulation and reward feedback.</td>
+              <td>Closed-loop simulator evidence.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section split" id="comparison">
+      <div class="section-heading">
+        <p class="eyebrow">Cross-Paradigm Comparison</p>
+        <h2>Mechanism, representation, and utility should be judged together.</h2>
+      </div>
+      <div class="comparison-grid">
+        <article>
+          <h3>Diffusion</h3>
+          <p>Strong for high-dimensional multimodal generation, but sampling cost and constraint maintenance can limit online use.</p>
+        </article>
+        <article>
+          <h3>Autoregression</h3>
+          <p>Flexible token interfaces for video, occupancy, text, and action, with exposure error during long rollout.</p>
+        </article>
+        <article>
+          <h3>Latent Dynamics</h3>
+          <p>Efficient for policy learning and value estimation, but hidden states are hard to verify for safety-critical variables.</p>
+        </article>
+        <article>
+          <h3>Object and Graph Models</h3>
+          <p>Preserve interaction and map relations, while often under-representing dense geometry and appearance.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="evaluation">
+      <div class="section-heading center">
+        <p class="eyebrow">Datasets, Simulators, Metrics, Benchmarks</p>
+        <h2>Evaluation should connect output quality to decision consequences.</h2>
+      </div>
+      <div class="evaluation-grid">
+        <article>
+          <h3>Training Datasets</h3>
+          <p>Video datasets support future synthesis; multimodal datasets such as KITTI, nuScenes, Waymo, and nuPlan support BEV, fusion, planning, and map-conditioned modeling.</p>
+        </article>
+        <article>
+          <h3>Simulation Platforms</h3>
+          <p>CARLA, MetaDrive, LimSim, Waymax, and learned simulation ecosystems determine how world models interact with routes, agents, sensors, and closed-loop feedback.</p>
+        </article>
+        <article>
+          <h3>Metrics</h3>
+          <p>Perceptual quality, geometric correctness, controllability, planning score, safety, comfort, progress, and rule compliance measure different evidence layers.</p>
+        </article>
+        <article>
+          <h3>Benchmark Protocols</h3>
+          <p>nuPlan, Bench2Drive, NAVSIM, BridgeSim, and WorldSimBench define the comparison contract for planning, actionability, and open-loop versus closed-loop evidence.</p>
+        </article>
+      </div>
+      <div class="evidence-chain" aria-label="Evidence chain">
+        <span>Open-loop fit</span>
+        <span>Counterfactual controllability</span>
+        <span>Planner-facing cost</span>
+        <span>Closed-loop behavior</span>
+        <span>Safety validation</span>
+      </div>
+    </section>
+
+    <section class="section" id="future">
+      <div class="section-heading center">
+        <p class="eyebrow">Open Challenges</p>
+        <h2>Future work should make imagined futures reliable, grounded, and usable.</h2>
+      </div>
+      <figure class="wide-figure">
+        <img src="assets/figures/future-challenges.png" alt="Future challenges for autonomous driving world models">
+      </figure>
+      <div class="challenge-grid">
+        <article>
+          <h3>Long-Horizon Reliability</h3>
+          <p>Control-relevant rollout must remain stable under planner feedback, multi-agent interaction, uncertainty, and safety constraints.</p>
+        </article>
+        <article>
+          <h3>Unified Multimodal Representation</h3>
+          <p>Camera, LiDAR, maps, language, trajectory commands, and interaction cues need a shared state abstraction grounded in physical semantics.</p>
+        </article>
+        <article>
+          <h3>Generation to Planning</h3>
+          <p>Perceptual realism must translate into free space, collision risk, agent intent, comfort, route progress, and closed-loop consequence.</p>
+        </article>
+        <article>
+          <h3>Efficiency and Scalability</h3>
+          <p>Online planning requires repeated rollouts, uncertainty estimates, and simulator integration under latency and memory constraints.</p>
+        </article>
+        <article>
+          <h3>Foundation-Model-Assisted Safety</h3>
+          <p>VLMs and VLA models can help scenario construction and semantic reasoning, but must remain grounded in traffic geometry and feasible motion.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="authors">
+      <div class="section-heading center">
+        <p class="eyebrow">Authors</p>
+        <h2>Survey team.</h2>
+      </div>
+      <div class="author-grid">
+        <article class="author-card">
+          <img src="assets/photos/HuangH.jpg" alt="Han Huang">
+          <h3>Han Huang</h3>
+          <p>Tongji University</p>
+          <a href="https://orcid.org/0009-0006-9396-0642">ORCID</a>
+        </article>
+        <article class="author-card">
+          <img src="assets/photos/YangDK.png" alt="Dingkang Yang">
+          <h3>Dingkang Yang</h3>
+          <p>Fudan University, CUHK MMLab</p>
+          <a href="https://orcid.org/0000-0003-1829-5671">ORCID</a>
+        </article>
+        <article class="author-card">
+          <img src="assets/photos/GuoLL.jpg" alt="Lulu Guo">
+          <h3>Lulu Guo</h3>
+          <p>Tongji University</p>
+          <a href="https://orcid.org/0000-0003-2285-2469">ORCID</a>
+        </article>
+        <article class="author-card">
+          <img src="assets/photos/LiuY.jpg" alt="Yang Liu">
+          <h3>Yang Liu</h3>
+          <p>Tongji University</p>
+          <a href="https://orcid.org/0000-0002-1312-0146">ORCID</a>
+        </article>
+        <article class="author-card">
+          <img src="assets/photos/VictorL.png" alt="Victor C.M. Leung">
+          <h3>Victor C.M. Leung</h3>
+          <p>SMBU, Shenzhen University, UBC</p>
+          <a href="https://orcid.org/0000-0003-3529-2640">ORCID</a>
+        </article>
+        <article class="author-card">
+          <img src="assets/photos/ChenH.png" alt="Hong Chen">
+          <h3>Hong Chen</h3>
+          <p>Tongji University</p>
+          <a href="https://orcid.org/0000-0002-1724-8649">ORCID</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="citation">
+      <div class="section-heading center">
+        <p class="eyebrow">Citation</p>
+        <h2>Please cite the survey if it is useful for your work.</h2>
+      </div>
+      <div class="citation-panel">
+        <button class="copy-button" type="button" data-copy-target="#bibtex">Copy BibTeX</button>
+        <pre id="bibtex">@article{huang2026worldmodelsautonomousdriving,
+  title   = {World Models for Autonomous Driving: From Future Generation to Decision Making},
+  author  = {Huang, Han and Yang, Dingkang and Guo, Lulu and Liu, Yang and Leung, Victor C. M. and Chen, Hong},
+  journal = {IEEE Transactions on Intelligent Transportation Systems},
+  year    = {2026},
+  note    = {Manuscript}
+}</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built as a static project page for the ADWM-V3 survey.</p>
+    <a href="#top">Back to top</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
