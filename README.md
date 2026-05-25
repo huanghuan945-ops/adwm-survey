@@ -1,12 +1,12 @@
 # World Models for Autonomous Driving
 
-Static GitHub Pages project page for the V5 survey:
+Static GitHub Pages project page for the survey:
 
 **World Models for Autonomous Driving: From Future Generation to Decision Making**
 
 ## Local Preview
 
-Open `index.html` directly in a browser, or serve this folder with any static HTTP server. The paper PDF is `assets/ADWM-V5.pdf`.
+Open `index.html` directly in a browser, or serve this folder with any static HTTP server. The paper PDF is `assets/World-Models-for-Autonomous-Driving.pdf`.
 
 ## GitHub Pages
 
